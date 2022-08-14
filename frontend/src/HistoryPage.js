@@ -1,84 +1,96 @@
 import React, { Fragment, useRef, useState } from "react";
+import axios from "axios";
 
 function HistoryPage() {
+  const orderIdRef = useRef("");
   const emailInputRef = useRef("");
-  const orderIdInputRef = useRef("");
   const [getSuccess, setGetSuccess] = useState(false);
-
-  let packages = [
-    { id: 1, flight: "Flight-1", stay: "2022-08-09", price: 100, quota: 1 },
-    { id: 2, flight: "Flight-2", stay: "2022-08-09", price: 100, quota: 2 },
-    { id: 3, flight: "Flight-3", stay: "2022-08-10", price: 100, quota: 2 },
-    { id: 4, flight: "Flight-3", stay: "2022-08-11", price: 100, quota: 2 },
-  ];
-
-  let packageTableData = packages.map((value) => {
-    let { id, flight, stay, price } = value;
-    return (
-      <tr key={id} id={id}>
-        <td>{flight}</td>
-        <td>{stay}</td>
-        <td>{price}</td>
-      </tr>
-    );
+  const [history, setHistory] = useState({
+    orderId: "",
+    emailInput: "",
+    flight: "",
+    stay: "",
+    price: 0,
   });
 
   const submitForm = (event) => {
     event.preventDefault();
-    // store the states in the form data
-    const loginFormData = new FormData();
-    loginFormData.append("orderIdInput", orderIdInputRef.current.value);
-    loginFormData.append("emailInput", emailInputRef.current.value);
+
+    axios
+      .post(
+        `http://localhost:5000/getHistory`,
+        {
+          orderId: orderIdRef.current.value,
+          emailInput: emailInputRef.current.value,
+        },
+        {
+          headers: { "Content-Type": "application/json" },
+        }
+      )
+      .then((response) => {
+        setGetSuccess(true);
+        setHistory({
+          orderId: response.data.orderId,
+          emailInput: response.data.emailInput,
+          flight: response.data.flight,
+          stay: response.data.stay,
+          price: response.data.price,
+        });
+        // console.log(response.data);
+      })
+      .catch((err) => {
+        // navigate('/result', {
+        //   state:err.response.data.message
+        // });
+      });
   };
 
-  return (
-    <Fragment>
-      <h3 style={{ fontFamily: "Roboto" }}>History Page</h3>
-
-      <div id="packageTable">
-        <table>
-          <thead>
-            <tr>
-              <th>Flight</th>
-              <th>Stay</th>
-              <th>Price</th>
-            </tr>
-          </thead>
-          <tbody>{packageTableData}</tbody>
-        </table>
+  let formLayout = (
+    <form onSubmit={submitForm}>
+      <div id="orderIdInputField">
+        <div>
+          <label>Order ID</label>
+        </div>
+        <input
+          ref={orderIdRef}
+          type="text"
+          id="orderIdInput"
+          name="orderIdInput"
+        />
       </div>
 
       <br />
       <br />
-      <form onSubmit={submitForm}>
-        <div id="orderIdInputField">
-          <div>
-            <label>Order ID</label>
-          </div>
-          <input
-            ref={emailInputRef}
-            type="text"
-            id="orderIdInput"
-            name="orderIdInput"
-          />
+      <div id="emailInputField">
+        <div>
+          <label>Your Email Address</label>
         </div>
+        <input
+          ref={emailInputRef}
+          type="text"
+          id="emailInput"
+          name="emailInput"
+        />
+      </div>
 
-        <br />
-        <br />
-        <div id="emailInputField">
-          <div>
-            <label>Your Email Address</label>
-          </div>
-          <input
-            ref={emailInputRef}
-            type="text"
-            id="emailInput"
-            name="emailInput"
-          />
-        </div>
+      <input type="submit" value="Submit" />
+    </form>
+  );
 
-        <input type="submit" value="Submit" />
-      </form>
+  let historyLayout = (
+    <Fragment>
+      <h5>Order ID: {history.orderId}</h5>
+      <h5>Email: {history.emailInput}</h5>
+      <h5>Flight: {history.flight}</h5>
+      <h5>Stay: {history.stay}</h5>
+      <h5>Price: {history.price}</h5>
+    </Fragment>
+  );
+
+  return (
+    <Fragment>
+      <h3 style={{ fontFamily: "Roboto" }}>History Page</h3>
+      {getSuccess ? historyLayout : formLayout}
     </Fragment>
   );
 }

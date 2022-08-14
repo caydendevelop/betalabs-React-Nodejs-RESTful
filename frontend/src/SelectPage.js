@@ -1,6 +1,6 @@
 import React, { Fragment, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-// import axios from "axios";
+import axios from "axios";
 
 function SelectPage() {
   const packageSelectionRef = useRef(0);
@@ -38,32 +38,27 @@ function SelectPage() {
 
   const submitForm = (event) => {
     event.preventDefault();
-    // store the states in the form data
-    const loginFormData = new FormData();
-    loginFormData.append("packageSelection", packageSelectionRef.current.value);
-    loginFormData.append("emailInput", emailInputRef.current.value);
-
-    console.log(loginFormData.get("packageSelection"));
-    console.log(loginFormData.get("emailInput"));
-
-    navigate('/result', {
-      state:{
-        packageSelection:packageSelectionRef.current.value,
-        emailInput:emailInputRef.current.value
-      }
-    });
-
-    // try {
-    //   // make axios post request
-    //   const response = await axios({
-    //     method: "post",
-    //     url: "/api/login",
-    //     data: loginFormData,
-    //     headers: { "Content-Type": "multipart/form-data" },
-    //   });
-    // } catch(error) {
-    //   console.log(error)
-    // }
+    
+    axios
+      .post(`http://localhost:5000/purchasePackage`, 
+      {
+        packageSelection: packageSelectionRef.current.value,
+        emailInput: emailInputRef.current.value
+      },
+      {
+        headers: { "Content-Type": "application/json" },
+      })
+      .then((response) => {
+        navigate('/result', {
+          state:response.data
+        });
+        // console.log(response.data);
+      })
+      .catch((err) => {
+        // navigate('/result', {
+        //   state:err.response.data.message
+        // });
+      });
   };
 
   return (
