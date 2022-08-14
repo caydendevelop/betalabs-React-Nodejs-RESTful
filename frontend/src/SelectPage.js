@@ -1,20 +1,26 @@
-import React, { Fragment, useRef } from "react";
+import React, { Fragment, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 function SelectPage() {
   const packageSelectionRef = useRef(0);
   const emailInputRef = useRef("");
+  const [packageList, setPackageList] = useState([]);
   let navigate = useNavigate();
 
-  let packages = [
-    { id: 1, flight: "Flight-1", stay: "2022-08-09", price: 100, quota: 1 },
-    { id: 2, flight: "Flight-2", stay: "2022-08-09", price: 100, quota: 2 },
-    { id: 3, flight: "Flight-3", stay: "2022-08-10", price: 100, quota: 2 },
-    { id: 4, flight: "Flight-3", stay: "2022-08-11", price: 100, quota: 2 },
-  ];
+  useEffect(() => {
+    axios
+			.get(`http://localhost:5000/getPackage`)
+			.then((res) => {
+				setPackageList(res.data.packages);
+			})
+			.catch((err) => {
+				
+			});
+  }, [])
 
-  let packageTableData = packages.map((value) => {
+  
+  let packageTableData = packageList.map((value) => {
     let { id, flight, stay, price, quota } = value;
     return (
       <tr key={id} id={id}>
@@ -27,7 +33,7 @@ function SelectPage() {
     );
   });
 
-  let packageOptionData = packages.map((value) => {
+  let packageOptionData = packageList.map((value) => {
     let { id } = value;
     return (
       <option key={id} value={id}>
@@ -63,7 +69,7 @@ function SelectPage() {
 
   return (
     <Fragment>
-      <h3 style={{ fontFamily: "Roboto" }}>Select Page</h3>
+      <h3>Select Page</h3>
 
       <div id="packageTable">
         <table>

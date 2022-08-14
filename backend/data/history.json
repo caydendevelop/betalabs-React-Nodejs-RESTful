@@ -1,1 +1,1 @@
-[{"orderId":"8cb34380-1b9c-11ed-8fdf-11ef12366f46","emailInput":"1@test.com","flight":"Flight-1","stay":"2022-08-09","price":100}]
+[{"orderId":"8cb34380-1b9c-11ed-8fdf-11ef12366f46","emailInput":"1@test.com","flight":"Flight-1","stay":"2022-08-09","price":100},{"orderId":"5790fb30-1ba0-11ed-92c6-27223e777c8c","emailInput":"2@test.com","flight":"Flight-2","stay":"2022-08-09","price":100},{"orderId":"2993a560-1ba1-11ed-9de5-eb011e77009e","emailInput":"22","flight":"Flight-2","stay":"2022-08-09","price":100}]
