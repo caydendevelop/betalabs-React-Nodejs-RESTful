@@ -1,1 +1,38 @@
-{"packages":[{"id":1,"flight":"Flight-1","stay":"2022-08-09","price":100,"quota":0},{"id":2,"flight":"Flight-2","stay":"2022-08-09","price":100,"quota":0},{"id":3,"flight":"Flight-3","stay":"2022-08-10","price":100,"quota":2},{"id":4,"flight":"Flight-3","stay":"2022-08-11","price":100,"quota":2}]}
+[
+  {
+    "id": 1,
+    "flightId": "0x16565225f875",
+    "flight": "Flight-1",
+    "hotelroomId": "0x1111245220145",
+    "stay": "2022-08-09",
+    "price": 100,
+    "quota": 1
+  },
+  {
+    "id": 2,
+    "flightId": "0x2e2c58442347",
+    "flight": "Flight-2",
+    "hotelroomId": "0x2225754210870",
+    "stay": "2022-08-09",
+    "price": 100,
+    "quota": 2
+  },
+  {
+    "id": 3,
+    "flightId": "0x3a3511b24561",
+    "flight": "Flight-3",
+    "hotelroomId": "0x3334540456721",
+    "stay": "2022-08-10",
+    "price": 100,
+    "quota": 3
+  },
+  {
+    "id": 4,
+    "flightId": "0x4d3169215171",
+    "flight": "Flight-3",
+    "hotelroomId": "0x4441320135241",
+    "stay": "2022-08-11",
+    "price": 100,
+    "quota": 4
+  }
+]

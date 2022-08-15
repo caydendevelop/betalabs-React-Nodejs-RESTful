@@ -8,7 +8,9 @@ function HistoryPage() {
   const [history, setHistory] = useState({
     orderId: "",
     emailInput: "",
+    flightId: "",
     flight: "",
+    hotelroomId: "",
     stay: "",
     price: 0,
   });
@@ -18,7 +20,7 @@ function HistoryPage() {
 
     axios
       .post(
-        `http://localhost:5000/getHistory`,
+        `http://localhost:5000/postGetHistory`,
         {
           orderId: orderIdRef.current.value,
           emailInput: emailInputRef.current.value,
@@ -32,7 +34,9 @@ function HistoryPage() {
         setHistory({
           orderId: response.data.orderId,
           emailInput: response.data.emailInput,
+          flightId: response.data.flightId,
           flight: response.data.flight,
+          hotelroomId: response.data.hotelroomId,
           stay: response.data.stay,
           price: response.data.price,
         });
@@ -89,7 +93,7 @@ function HistoryPage() {
 
   return (
     <Fragment>
-      <h3 style={{ fontFamily: "Roboto" }}>History Page</h3>
+      <h3>History Page</h3>
       {getSuccess ? historyLayout : formLayout}
     </Fragment>
   );

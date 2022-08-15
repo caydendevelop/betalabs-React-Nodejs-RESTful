@@ -5,10 +5,14 @@ const campaignController = require('../controllers/campaign-controller');
 
 const router = express.Router();
 
-router.get('/getPackage', campaignController.getPackage); //localhost:5000/getPackage
+router.get('/getPackage', campaignController.getPackage); 
+router.get('/getFlight', campaignController.getFlight); 
+router.get('/getHotelroom', campaignController.getHotelroom); 
+router.get('/getHistory', campaignController.getHistory); 
 
-router.post('/getHistory', campaignController.getHistory); //localhost:5000/getHistory
-
-router.post('/purchasePackage', campaignController.purchasePackage); //localhost:5000/purchasePackage
+router.post('/postReserveFlight/', campaignController.postReserveFlight); 
+router.post('/postReserveHotelroom/', campaignController.postReserveHotelroom); 
+router.post('/postGetHistory', campaignController.postGetHistory); 
+router.post('/postPurchasePackage', campaignController.postPurchasePackage); 
 
 module.exports = router;

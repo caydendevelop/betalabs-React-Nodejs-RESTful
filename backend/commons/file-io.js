@@ -14,12 +14,9 @@ const readData = (path) => {
   return fileData;
 };
 
-const writeData = (packageArray) => {
-  let writableObject = {
-    packages: packageArray,
-  };
-
-  fs.writeFile("__dirname/../data/package-data.json", JSON.stringify(writableObject), (err) => {
+const writeData = (path, writableArray) => {
+  
+  fs.writeFile(path, JSON.stringify(writableArray), (err) => {
     if (err) console.log(err);
   });
 };
@@ -52,7 +49,6 @@ const writeHistory = (jsonObject) => {
       }
     );
     createStream.end();
-    console.log(jsonObject);
     writeHistoryLogic(historyList, jsonObject);
   }
 };

@@ -12,7 +12,7 @@ function SelectPage() {
     axios
 			.get(`http://localhost:5000/getPackage`)
 			.then((res) => {
-				setPackageList(res.data.packages);
+				setPackageList(res.data);
 			})
 			.catch((err) => {
 				
@@ -46,7 +46,7 @@ function SelectPage() {
     event.preventDefault();
     
     axios
-      .post(`http://localhost:5000/purchasePackage`, 
+      .post(`http://localhost:5000/postPurchasePackage`, 
       {
         packageSelection: packageSelectionRef.current.value,
         emailInput: emailInputRef.current.value
