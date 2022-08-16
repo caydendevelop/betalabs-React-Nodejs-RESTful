@@ -1,7 +1,11 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const HttpError = require('./commons/http-error');
-const campaignRoute = require('./routes/campaign-route')
+const packageRoute = require('./routes/package-route');
+const flightRoute = require('./routes/flight-route');
+const hotelroomRoute = require('./routes/hotelroom-route');
+const historyRoute = require('./routes/history-route');
+
 
 
 const app = express();
@@ -22,7 +26,10 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use('/', campaignRoute);
+app.use('/package', packageRoute);
+app.use('/flight', flightRoute);
+app.use('/hotelroom', hotelroomRoute);
+app.use('/history', historyRoute);
 
 app.use((req, res, next) => { // error handler for unsupported route
   const error = new HttpError('Could not find this route.', 404);
@@ -38,5 +45,5 @@ app.use((error, req, res, next) => { // 4 parameters = default error handler mid
 
 });
 
-app.listen(5000);
+app.listen(5086);
 
