@@ -14,10 +14,10 @@ const getHotelroom = async (req, res, next) => {
 };
 
 const postReserveHotelroom = async (req, res, next) => {
-  let hotelroomArray = await fileIo.getFuncApi("getHotelroom");
+  let hotelroomArray = await fileIo.getFuncApi("hotelroom/getHotelroom");
   let { hotelroomId, flightId, emailInput } = req.body;
 
-  let flightArray = await fileIo.getFuncApi("getFlight");
+  let flightArray = await fileIo.getFuncApi("flight/getFlight");
   let flightIdValidator = false;
   flightArray.forEach((element) => {
     if (element["flightId"] == flightId) {

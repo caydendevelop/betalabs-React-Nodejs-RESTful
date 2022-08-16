@@ -1,6 +1,1 @@
-[
-  { "hotelroomId": "0x1111245220145", "quota": 1 },
-  { "hotelroomId": "0x2225754210870", "quota": 2 },
-  { "hotelroomId": "0x3334540456721", "quota": 3 },
-  { "hotelroomId": "0x4441320135241", "quota": 4 }
-]
+[{"hotelroomId":"0x1111245220145","quota":0},{"hotelroomId":"0x2225754210870","quota":1},{"hotelroomId":"0x3334540456721","quota":3},{"hotelroomId":"0x4441320135241","quota":3}]

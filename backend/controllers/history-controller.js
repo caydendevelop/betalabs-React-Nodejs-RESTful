@@ -14,7 +14,7 @@ const getHistory = async (req, res, next) => {
 };
 
 const postGetHistory = async (req, res, next) => {
-  let historyArray = await fileIo.getFuncApi("getHistory");
+  let historyArray = await fileIo.getFuncApi("history/getHistory");
 
   const { orderId, emailInput } = req.body;
 

@@ -14,17 +14,18 @@ const getFlight = async (req, res, next) => {
 };
 
 const postReserveFlight = async (req, res, next) => {
-  let result = Math.random();
-  let isLucky = false;
+  // let result = Math.random();
+  // let isLucky = false;
   // result < 0.5 ? (isLucky = false) : (isLucky = true);
 
-  if (!isLucky) {
-    const error = new HttpError("Falied in Reserve Flight", 200);
-    return next(error);
-  }
+  // if (!isLucky) {
+  //   const error = new HttpError("Falied in Reserve Flight", 200);
+  //   return next(error);
+  // }
 
   let { flightId, emailInput } = req.body;
-  let flightArray = await fileIo.getFuncApi("getFlight");
+  let flightArray = await fileIo.getFuncApi("flight/getFlight");
+  console.log(flightArray);
 
   let isRes = false;
   flightArray.forEach((element, index) => {

@@ -20,7 +20,7 @@ function HistoryPage() {
 
     axios
       .post(
-        `http://localhost:5000/postGetHistory`,
+        `http://localhost:5001/history/postGetHistory`,
         {
           orderId: orderIdRef.current.value,
           emailInput: emailInputRef.current.value,

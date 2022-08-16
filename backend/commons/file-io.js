@@ -1,6 +1,7 @@
 const fs = require("fs");
 const fsPromises = fs.promises;
-
+const axios = require("axios");
+const HttpError = require("../commons/http-error.js");
 
 
 const readData = (path) => {
@@ -73,7 +74,7 @@ const readFileData = async (fileName) => {
 };
 
 const getFuncApi = async (target) => {
-  let path = "http://localhost:5000/" + target;
+  let path = "http://localhost:5001/" + target;
 
   let resData = await axios
     .get(path)
@@ -94,7 +95,7 @@ const getFuncApi = async (target) => {
 };
 
 const postFuncApi = async (target, payload) => {
-  let path = "http://localhost:5000/" + target;
+  let path = "http://localhost:5001/" + target;
 
   let resData = await axios
     .post(path, payload)

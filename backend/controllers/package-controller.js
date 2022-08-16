@@ -14,7 +14,7 @@ const getPackage = async (req, res, next) => {
 };
 
 const postPurchasePackage = async (req, res, next) => {
-  let packagesArray = await fileIo.getFuncApi("getPackage");
+  let packagesArray = await fileIo.getFuncApi("package/getPackage");
 
   const { packageSelection, emailInput } = req.body;
   let isRes = false;
@@ -36,7 +36,7 @@ const postPurchasePackage = async (req, res, next) => {
   if(isSetTargetElement){
 
     // reserve flight
-    let reserveFlight = await fileIo.postFuncApi("postReserveFlight", {
+    let reserveFlight = await fileIo.postFuncApi("flight/postReserveFlight", {
       flightId: targetElement["flightId"],
       emailInput: emailInput,
     });
@@ -50,7 +50,7 @@ const postPurchasePackage = async (req, res, next) => {
     }
 
     // if reserve flight success
-    let reserveHotelroom = await fileIo.postFuncApi("postReserveHotelroom", {
+    let reserveHotelroom = await fileIo.postFuncApi("hotelroom/postReserveHotelroom", {
       hotelroomId: targetElement["hotelroomId"],
       flightId: targetElement["flightId"],
       emailInput: emailInput,
@@ -58,7 +58,18 @@ const postPurchasePackage = async (req, res, next) => {
 
     // if failed to reserve hotelroom
     if (reserveHotelroom.message != "Reserve Hotelroom Success!") {
+
+      // add back the quota for the flight
+      let packagesArray = await fileIo.getFuncApi("flight/getFlight");
+      flightArray.forEach((element, index) => {
+        if(element['flightId'] == flightId){
+          flightArray[index]["quota"] += 1;
+        }
+      });
+      fileIo.writeData(process.cwd() + "/data/flight-data.json", flightArray);
+
       const error = new HttpError("Failed in Reserve Hotelroom", 200);
+      // add back the quota for the package
       packagesArray[targetElementIndex]["quota"] += 1;
       fileIo.writeData(process.cwd() + "/data/package-data.json", packagesArray);
       return next(error);
@@ -85,7 +96,7 @@ const postPurchasePackage = async (req, res, next) => {
   }
     
   if (!isRes) {
-    const error = new HttpError("Sold out", 200);
+    const error = new HttpError("Failed in purchasing package", 200);
     return next(error);
   }
 };

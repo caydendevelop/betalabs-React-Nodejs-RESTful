@@ -10,7 +10,7 @@ function SelectPage() {
 
   useEffect(() => {
     axios
-			.get(`http://localhost:5000/getPackage`)
+			.get(`http://localhost:5001/package/getPackage`)
 			.then((res) => {
 				setPackageList(res.data);
 			})
@@ -46,7 +46,7 @@ function SelectPage() {
     event.preventDefault();
     
     axios
-      .post(`http://localhost:5000/postPurchasePackage`, 
+      .post(`http://localhost:5001/package/postPurchasePackage`, 
       {
         packageSelection: packageSelectionRef.current.value,
         emailInput: emailInputRef.current.value
@@ -55,7 +55,7 @@ function SelectPage() {
         headers: { "Content-Type": "application/json" },
       })
       .then((response) => {
-        navigate('/result', {
+        navigate('/resultPage', {
           state:response.data
         });
         // console.log(response.data);
