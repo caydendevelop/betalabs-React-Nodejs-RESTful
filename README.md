@@ -23,7 +23,7 @@ Pure backend endpoint for reserving flight
     
 Pure backend endpoint for reserving hotelroom
 
-  - POST Request (http://localhost:5001/hotelroompostReserveHotelroom)
+  - POST Request (http://localhost:5001/hotelroom/postReserveHotelroom)
   - Body
     - flightId (Could be found in flight-data.json)
     - hotelroomId (Could be found in hotelroom-data.json)
